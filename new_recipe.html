@@ -13,22 +13,70 @@
         <h1 class="site-header__h1 --center-text">My Cook Book</h1>
         <ul class="site-header__links">
             <a href="index.html">
-                <li  class="site-header__links--item">Home</li>
+                <li class="site-header__links--item">Home</li>
             </a>
-            <a href="new_recipe.html">
-                <li  class="site-header__links--item --chosen-page">New Recipe</li>
+            <a href="#">
+                <li class="site-header__links--item --chosen-page">New Recipe</li>
             </a>
             <a href="all_recipes.html">
-                <li  class="site-header__links--item">All recipes</li>
+                <li class="site-header__links--item">All recipes</li>
             </a>
             <a href="stared_recipes.html">
-                <li  class="site-header__links--item">Stared</li>
+                <li class="site-header__links--item">Stared</li>
             </a>
             <a href="shopping_cart.html">
-                <li  class="site-header__links--item">Shoping cart</li>
+                <li class="site-header__links--item">Shoping cart</li>
             </a>
         </ul>
     </header>
+
+    <main>
+        <article class="--centered-flex">
+            <form name="add-recipe" class="--card" novalidate>
+                <h2 class="form__h2 --center-text">Add a New Recipe</h2>
+                <div id="recipe-name-div" class="form-input --margin-top">
+                    <label for="recipe-name">Name:</label>
+                    <input type="text" id="recipe-name" name="recipeName" minlength="1" required autofocus />
+                </div>
+                <div class="form-input">
+                    <label for="recipe-type">Type:</label>
+                    <select name="recipeType" id="recipe-type">
+                        <option value="" selected disabled></option>
+                        <option value="Appetizer">Appetizer</option>
+                        <option value="Salad">Salad</option>
+                        <option value="Main Course">Main Course</option>
+                        <option value="Dessert">Dessert</option>
+                    </select>
+                </div>
+                <div id="recipe-ingredients-div" class="form-input">
+                    <label for="recipe-ingredients">Ingredients:</label>
+                    <input type="text" id="recipe-ingredients" name="recipeIngredients" minlength="1" required />
+                </div>
+                <div id="recipe-description-div" class="form-input">
+                    <label for="recipe-name">Description:</label>
+                    <textarea type="text" id="recipe-description" name="recipeDescription" minlength="1" rows="5"
+                        cols="100" required></textarea>
+                </div>
+                <div class="form-input">
+                    <label for="recipe-difficulty">Difficulty:</label>
+                    <select name="recipeDifficulty" id="recipe-difficulty">
+                        <option value="Beginner">Beginner*</option>
+                        <option value="Cook">Cook**</option>
+                        <option value="Culinarian">Culinarian***</option>
+                        <option value="Chef">Chef****</option>
+                    </select>
+                </div>
+                <div id="recipe-duration-div" class="form-input">
+                    <label for="recipe-duration">Duration (minutes):</label>
+                    <input type="number" id="recipe-duration" name="recipeDuration" minlength="1" required autofocus />
+                </div>
+                <div class="form-buttons__container --margin-top">
+                    <button type="reset" class="button --reset-button">Reset</button>
+                    <button type="submit" class="button">Add</button>
+                </div>
+            </form>
+        </article>
+    </main>
 
     <script type="module" src="dist/app.js"></script>
 </body>
