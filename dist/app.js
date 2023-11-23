@@ -1,5 +1,6 @@
 import { recipes } from "./recipes.js";
 const recipeForm = document.forms.namedItem("add-recipe");
+const messagesPopUp = document.getElementById("messages");
 recipeForm?.addEventListener("submit", function (e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -11,8 +12,13 @@ recipeForm?.addEventListener("submit", function (e) {
         Difficulty: parseDifficultyType(getRequiredString(formData, "recipeDifficulty")),
         DurationInMinutes: Number(formData.get("recipeDuration")),
         isStared: false,
+        isMine: true,
     });
-    console.log(recipes);
+    console.log("All recipes:", recipes);
+    sessionStorage.setItem("recipes", JSON.stringify(recipes));
+    recipeForm.reset();
+    unHideDisplay(messagesPopUp);
+    setTimeout(() => hideDisplay(messagesPopUp), 5000);
 });
 function getString(formData, key) {
     const value = formData.get(key);
@@ -51,4 +57,18 @@ function parseDifficultyType(value) {
         throw new Error(`Invalid difficullty type: ${value}`);
     }
     return value;
+}
+function hideDisplay(...elements) {
+    elements.forEach((element) => {
+        if (element) {
+            element.classList.add("--display-none");
+        }
+    });
+}
+function unHideDisplay(...elements) {
+    elements.forEach((element) => {
+        if (element) {
+            element.classList.remove("--display-none");
+        }
+    });
 }
