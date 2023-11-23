@@ -203,3 +203,13 @@ h6 {
 .--display-none {
   display: none;
 }
+
+.--smaller-text {
+  font-size: x-small;
+}
+
+.unfold-button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}

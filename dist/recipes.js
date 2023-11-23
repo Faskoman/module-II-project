@@ -71,3 +71,5 @@ export const storedRecipes = sessionStorage.getItem("recipes");
 if (storedRecipes) {
     recipes = JSON.parse(storedRecipes);
 }
+export let staredRecipes = recipes.filter((recipe) => recipe.isStared);
+export let myRecipes = recipes.filter((recipe) => recipe.isMine);

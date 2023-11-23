@@ -20,6 +20,57 @@ recipeForm?.addEventListener("submit", function (e) {
     unHideDisplay(messagesPopUp);
     setTimeout(() => hideDisplay(messagesPopUp), 5000);
 });
+const allRecipesDisplay = document.getElementById("all-recipes");
+const unfoldButtonsArray = Array.from(document.querySelectorAll(".unfold-button"));
+unfoldButtonsArray.forEach((button) => {
+    button.addEventListener("click", function () {
+        toggleHideDisplay(...unfoldButtonsArray);
+    });
+});
+function displayAllRecipes() {
+    allRecipesDisplay.innerHTML = "";
+    recipes.forEach((recipe) => {
+        const recipeContainer = document.createElement("div");
+        recipeContainer.classList.add("recipe-container", "--card");
+        const recipeName = document.createElement("h2");
+        recipeName.classList.add("form__h2", "--center-text");
+        recipeName.textContent = `${recipe.Name}`;
+        const recipeType = document.createElement("p");
+        recipeType.classList.add("--smaller-text", "--center-text");
+        recipeType.textContent = `${recipe.Type}`;
+        const recipeIngredients = document.createElement("div");
+        recipeIngredients.innerHTML = `
+    <button class="unfold-button">
+    Ingredients: 
+    <p class="--display-none">
+    ${recipe.Ingredients.join(", ")}
+    </p>
+    </button>`;
+        const recipeDescription = document.createElement("div");
+        recipeDescription.innerHTML = `
+    <button class="unfold-button">
+    Description: 
+    <p class="--display-none">
+    ${recipe.Description}
+    </p>
+    </button>`;
+        const recipeDifficulty = document.createElement("p");
+        recipeDifficulty.textContent = `Difficulty: ${recipe.Difficulty}`;
+        const recipeDuration = document.createElement("p");
+        recipeDuration.textContent = `Duration: ${recipe.DurationInMinutes} minutes`;
+        const isStared = document.createElement("div");
+        isStared.classList.add("stared-div");
+        recipeContainer.appendChild(recipeName);
+        recipeContainer.appendChild(recipeType);
+        recipeContainer.appendChild(recipeIngredients);
+        recipeContainer.appendChild(recipeDescription);
+        recipeContainer.appendChild(recipeDifficulty);
+        recipeContainer.appendChild(recipeDuration);
+        recipeContainer.appendChild(isStared);
+        allRecipesDisplay.appendChild(recipeContainer);
+    });
+}
+displayAllRecipes();
 function getString(formData, key) {
     const value = formData.get(key);
     if (value == null) {
@@ -69,6 +120,13 @@ function unHideDisplay(...elements) {
     elements.forEach((element) => {
         if (element) {
             element.classList.remove("--display-none");
+        }
+    });
+}
+function toggleHideDisplay(...elements) {
+    elements.forEach((element) => {
+        if (element) {
+            element.classList.toggle("--display-none");
         }
     });
 }
