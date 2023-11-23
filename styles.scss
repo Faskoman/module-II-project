@@ -224,4 +224,9 @@ h6 {
     border: none;
     cursor: pointer;
     background-color: transparent;
+    display: contents;
+}
+
+.--text-align-start {
+    text-align: start;
 }

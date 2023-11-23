@@ -18,13 +18,15 @@ recipeForm?.addEventListener("submit", function (e) {
     sessionStorage.setItem("recipes", JSON.stringify(recipes));
     recipeForm.reset();
     unHideDisplay(messagesPopUp);
-    setTimeout(() => hideDisplay(messagesPopUp), 5000);
+    setTimeout(() => hideDisplay(messagesPopUp), 4000);
 });
 const allRecipesDisplay = document.getElementById("all-recipes");
-const unfoldButtonsArray = Array.from(document.querySelectorAll(".unfold-button"));
-unfoldButtonsArray.forEach((button) => {
-    button.addEventListener("click", function () {
-        toggleHideDisplay(...unfoldButtonsArray);
+document.addEventListener("DOMContentLoaded", function () {
+    const unfoldButtonsArray = Array.from(document.querySelectorAll(".unfold-button"));
+    unfoldButtonsArray.forEach((button) => {
+        button.addEventListener("click", function () {
+            toggleHideDisplay(button.querySelector('p'));
+        });
     });
 });
 function displayAllRecipes() {
@@ -40,9 +42,9 @@ function displayAllRecipes() {
         recipeType.textContent = `${recipe.Type}`;
         const recipeIngredients = document.createElement("div");
         recipeIngredients.innerHTML = `
-    <button class="unfold-button">
+    <button class="unfold-button --left-text">
     Ingredients: 
-    <p class="--display-none">
+    <p class="--text-align-start --display-none">
     ${recipe.Ingredients.join(", ")}
     </p>
     </button>`;
@@ -50,7 +52,7 @@ function displayAllRecipes() {
         recipeDescription.innerHTML = `
     <button class="unfold-button">
     Description: 
-    <p class="--display-none">
+    <p class="--text-align-start --display-none">
     ${recipe.Description}
     </p>
     </button>`;
