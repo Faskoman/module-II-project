@@ -42,8 +42,10 @@ recipeForm?.addEventListener("submit", function (e) {
 });
 
 const allRecipesDisplay = document.getElementById("all-recipes") as HTMLElement;
+const staredRecipesDisplay = document.getElementById("stared-recipes") as HTMLElement;
 
 function displayRecipes(container: HTMLElement, recipesToDisplay: Recipe[]) {
+  console.log("Displaying recipes:", recipesToDisplay);
   container.innerHTML = "";
 
   recipesToDisplay.forEach((recipe) => {
@@ -189,8 +191,12 @@ const shoppingCartCountElement = document.getElementById(
   "shopping-cart-count"
 ) as HTMLElement;
 
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("load", function () {
+  console.log("All recipes:", recipes);
+  console.log("Stared recipes:", staredRecipes);
+
   displayRecipes(allRecipesDisplay, recipes);
+  displayRecipes(staredRecipesDisplay, staredRecipes);
 
   const unfoldButtonsArray = Array.from(
     document.querySelectorAll(".unfold-button")

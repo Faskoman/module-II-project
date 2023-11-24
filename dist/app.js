@@ -23,7 +23,9 @@ recipeForm?.addEventListener("submit", function (e) {
     updateHome();
 });
 const allRecipesDisplay = document.getElementById("all-recipes");
+const staredRecipesDisplay = document.getElementById("stared-recipes");
 function displayRecipes(container, recipesToDisplay) {
+    console.log("Displaying recipes:", recipesToDisplay);
     container.innerHTML = "";
     recipesToDisplay.forEach((recipe) => {
         const recipeContainer = document.createElement("div");
@@ -130,8 +132,11 @@ const allRecipesCountElement = document.getElementById("all-recipes-count");
 const staredRecipesCountElement = document.getElementById("stared-recipes-count");
 const myRecipesCountElement = document.getElementById("my-recipes-count");
 const shoppingCartCountElement = document.getElementById("shopping-cart-count");
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("load", function () {
+    console.log("All recipes:", recipes);
+    console.log("Stared recipes:", staredRecipes);
     displayRecipes(allRecipesDisplay, recipes);
+    displayRecipes(staredRecipesDisplay, staredRecipes);
     const unfoldButtonsArray = Array.from(document.querySelectorAll(".unfold-button"));
     unfoldButtonsArray.forEach((button) => {
         button.addEventListener("click", function () {
