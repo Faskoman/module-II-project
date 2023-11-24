@@ -132,12 +132,11 @@ const myRecipesCountElement = document.getElementById("my-recipes-count");
 const shoppingCartCountElement = document.getElementById("shopping-cart-count");
 document.addEventListener("DOMContentLoaded", function () {
     displayAllRecipes();
+    updateHome();
     const unfoldButtonsArray = Array.from(document.querySelectorAll(".unfold-button"));
     unfoldButtonsArray.forEach((button) => {
         button.addEventListener("click", function () {
             toggleHideDisplay(button.querySelector("p"));
-            displayAllRecipes();
-            updateHome();
         });
     });
 });

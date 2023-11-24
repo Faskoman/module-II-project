@@ -191,6 +191,7 @@ const shoppingCartCountElement = document.getElementById(
 
 document.addEventListener("DOMContentLoaded", function () {
   displayAllRecipes();
+  updateHome();
   const unfoldButtonsArray = Array.from(
     document.querySelectorAll(".unfold-button")
   ) as HTMLElement[];
@@ -198,8 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
   unfoldButtonsArray.forEach((button) => {
     button.addEventListener("click", function () {
       toggleHideDisplay(button.querySelector("p") as HTMLElement);
-      displayAllRecipes();
-      updateHome();
     });
   });
 });
