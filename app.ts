@@ -37,16 +37,16 @@ recipeForm?.addEventListener("submit", function (e) {
   unHideDisplay(messagesPopUp);
   setTimeout(() => hideDisplay(messagesPopUp), 4000);
 
-  displayAllRecipes();
+  displayRecipes(allRecipesDisplay, recipes);
   updateHome();
 });
 
 const allRecipesDisplay = document.getElementById("all-recipes") as HTMLElement;
 
-function displayAllRecipes() {
-  allRecipesDisplay.innerHTML = "";
+function displayRecipes(container: HTMLElement, recipesToDisplay: Recipe[]) {
+  container.innerHTML = "";
 
-  recipes.forEach((recipe) => {
+  recipesToDisplay.forEach((recipe) => {
     const recipeContainer = document.createElement("div");
     recipeContainer.classList.add("recipe-container", "--card");
 
@@ -93,7 +93,7 @@ function displayAllRecipes() {
     recipeContainer.appendChild(recipeDuration);
     recipeContainer.appendChild(isStared);
 
-    allRecipesDisplay.appendChild(recipeContainer);
+    container.appendChild(recipeContainer);
   });
 }
 
@@ -190,8 +190,8 @@ const shoppingCartCountElement = document.getElementById(
 ) as HTMLElement;
 
 document.addEventListener("DOMContentLoaded", function () {
-  displayAllRecipes();
-  updateHome();
+  displayRecipes(allRecipesDisplay, recipes);
+
   const unfoldButtonsArray = Array.from(
     document.querySelectorAll(".unfold-button")
   ) as HTMLElement[];

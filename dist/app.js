@@ -19,13 +19,13 @@ recipeForm?.addEventListener("submit", function (e) {
     recipeForm.reset();
     unHideDisplay(messagesPopUp);
     setTimeout(() => hideDisplay(messagesPopUp), 4000);
-    displayAllRecipes();
+    displayRecipes(allRecipesDisplay, recipes);
     updateHome();
 });
 const allRecipesDisplay = document.getElementById("all-recipes");
-function displayAllRecipes() {
-    allRecipesDisplay.innerHTML = "";
-    recipes.forEach((recipe) => {
+function displayRecipes(container, recipesToDisplay) {
+    container.innerHTML = "";
+    recipesToDisplay.forEach((recipe) => {
         const recipeContainer = document.createElement("div");
         recipeContainer.classList.add("recipe-container", "--card");
         const recipeName = document.createElement("h2");
@@ -63,7 +63,7 @@ function displayAllRecipes() {
         recipeContainer.appendChild(recipeDifficulty);
         recipeContainer.appendChild(recipeDuration);
         recipeContainer.appendChild(isStared);
-        allRecipesDisplay.appendChild(recipeContainer);
+        container.appendChild(recipeContainer);
     });
 }
 function getString(formData, key) {
@@ -131,8 +131,7 @@ const staredRecipesCountElement = document.getElementById("stared-recipes-count"
 const myRecipesCountElement = document.getElementById("my-recipes-count");
 const shoppingCartCountElement = document.getElementById("shopping-cart-count");
 document.addEventListener("DOMContentLoaded", function () {
-    displayAllRecipes();
-    updateHome();
+    displayRecipes(allRecipesDisplay, recipes);
     const unfoldButtonsArray = Array.from(document.querySelectorAll(".unfold-button"));
     unfoldButtonsArray.forEach((button) => {
         button.addEventListener("click", function () {
