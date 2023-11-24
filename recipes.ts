@@ -88,6 +88,11 @@ export let recipes: Recipe[] = [
   },
 ];
 
+export function addRecipe(recipe: Recipe) {
+  recipes.push(recipe);
+  sessionStorage.setItem("recipes", JSON.stringify(recipes));
+}
+
 export const storedRecipes = sessionStorage.getItem("recipes");
 
 if (storedRecipes) {

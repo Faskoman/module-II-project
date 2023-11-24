@@ -1,4 +1,12 @@
-import { DifficultyType, recipes, RecipeType } from "./recipes.js";
+import {
+  Recipe,
+  addRecipe,
+  DifficultyType,
+  recipes,
+  RecipeType,
+  myRecipes,
+  staredRecipes,
+} from "./recipes.js";
 
 const recipeForm = document.forms.namedItem("add-recipe");
 const messagesPopUp = document.getElementById("messages") as HTMLElement;
@@ -8,7 +16,7 @@ recipeForm?.addEventListener("submit", function (e) {
 
   const formData = new FormData(e.target as HTMLFormElement);
 
-  recipes.push({
+  const newRecipe: Recipe = {
     Name: getRequiredString(formData, "recipeName"),
     Type: parseType(getRequiredString(formData, "recipeType")),
     Ingredients: [],
@@ -19,27 +27,32 @@ recipeForm?.addEventListener("submit", function (e) {
     DurationInMinutes: Number(formData.get("recipeDuration")),
     isStared: false,
     isMine: true,
-  });
+  };
+
+  addRecipe(newRecipe);
 
   console.log("All recipes:", recipes);
-
-  sessionStorage.setItem("recipes", JSON.stringify(recipes));
 
   recipeForm.reset();
   unHideDisplay(messagesPopUp);
   setTimeout(() => hideDisplay(messagesPopUp), 4000);
+
+  displayAllRecipes();
+  updateHome();
 });
 
 const allRecipesDisplay = document.getElementById("all-recipes") as HTMLElement;
 
-document.addEventListener("DOMContentLoaded", function() {
-  const unfoldButtonsArray = Array.from(document.querySelectorAll(".unfold-button")) as HTMLElement[];
+document.addEventListener("DOMContentLoaded", function () {
+  const unfoldButtonsArray = Array.from(
+    document.querySelectorAll(".unfold-button")
+  ) as HTMLElement[];
 
   unfoldButtonsArray.forEach((button) => {
     button.addEventListener("click", function () {
-        toggleHideDisplay(button.querySelector('p') as HTMLElement);
+      toggleHideDisplay(button.querySelector("p") as HTMLElement);
     });
-});
+  });
 });
 
 function displayAllRecipes() {
@@ -95,8 +108,6 @@ function displayAllRecipes() {
     allRecipesDisplay.appendChild(recipeContainer);
   });
 }
-
-displayAllRecipes();
 
 function getString(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -175,3 +186,38 @@ function toggleHideDisplay(...elements: HTMLElement[]) {
     }
   });
 }
+
+const appInfoElement = document.getElementById("app-info") as HTMLElement;
+const allRecipesCountElement = document.getElementById(
+  "all-recipes-count"
+) as HTMLElement;
+const staredRecipesCountElement = document.getElementById(
+  "stared-recipes-count"
+) as HTMLElement;
+const myRecipesCountElement = document.getElementById(
+  "my-recipes-count"
+) as HTMLElement;
+const shoppingCartCountElement = document.getElementById(
+  "shopping-cart-count"
+) as HTMLElement;
+
+document.addEventListener("DOMContentLoaded", function () {
+  displayAllRecipes();
+  // updateCount(allRecipesCountElement, recipes.length, "all");
+  // updateCount(staredRecipesCountElement, staredRecipes.length, "stared");
+  // updateCount(myRecipesCountElement, myRecipes.length, "my");
+  // updateCount(shoppingCartCountElement, 0, "shopping cart");
+});
+
+// function updateCount(element: HTMLElement, count: number, itemName: string) {
+//   element.textContent = `You have a total of ${count} ${itemName} recipes`;
+// }
+
+function updateHome() {
+  allRecipesCountElement.textContent = `You have a total of ${recipes.length} recipes`;
+  staredRecipesCountElement.textContent = `You have liked ${staredRecipes.length} recipes`;
+  myRecipesCountElement.textContent = `You have added ${myRecipes.length} recipes to your cook book`;
+  shoppingCartCountElement.textContent = `You have a total of 0 items in your shopping cart`;
+}
+
+updateHome();

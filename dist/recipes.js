@@ -67,6 +67,10 @@ export let recipes = [
         isMine: false,
     },
 ];
+export function addRecipe(recipe) {
+    recipes.push(recipe);
+    sessionStorage.setItem("recipes", JSON.stringify(recipes));
+}
 export const storedRecipes = sessionStorage.getItem("recipes");
 if (storedRecipes) {
     recipes = JSON.parse(storedRecipes);
