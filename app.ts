@@ -43,18 +43,6 @@ recipeForm?.addEventListener("submit", function (e) {
 
 const allRecipesDisplay = document.getElementById("all-recipes") as HTMLElement;
 
-document.addEventListener("DOMContentLoaded", function () {
-  const unfoldButtonsArray = Array.from(
-    document.querySelectorAll(".unfold-button")
-  ) as HTMLElement[];
-
-  unfoldButtonsArray.forEach((button) => {
-    button.addEventListener("click", function () {
-      toggleHideDisplay(button.querySelector("p") as HTMLElement);
-    });
-  });
-});
-
 function displayAllRecipes() {
   allRecipesDisplay.innerHTML = "";
 
@@ -203,20 +191,27 @@ const shoppingCartCountElement = document.getElementById(
 
 document.addEventListener("DOMContentLoaded", function () {
   displayAllRecipes();
-  // updateCount(allRecipesCountElement, recipes.length, "all");
-  // updateCount(staredRecipesCountElement, staredRecipes.length, "stared");
-  // updateCount(myRecipesCountElement, myRecipes.length, "my");
-  // updateCount(shoppingCartCountElement, 0, "shopping cart");
+  const unfoldButtonsArray = Array.from(
+    document.querySelectorAll(".unfold-button")
+  ) as HTMLElement[];
+
+  unfoldButtonsArray.forEach((button) => {
+    button.addEventListener("click", function () {
+      toggleHideDisplay(button.querySelector("p") as HTMLElement);
+      displayAllRecipes();
+      updateHome();
+    });
+  });
 });
 
-// function updateCount(element: HTMLElement, count: number, itemName: string) {
-//   element.textContent = `You have a total of ${count} ${itemName} recipes`;
-// }
+function updateCount(element: HTMLElement, count: number, itemName: string) {
+  element.textContent = `You have a total of ${count} ${itemName}`;
+}
 
 function updateHome() {
-  allRecipesCountElement.textContent = `You have a total of ${recipes.length} recipes`;
-  staredRecipesCountElement.textContent = `You have liked ${staredRecipes.length} recipes`;
-  myRecipesCountElement.textContent = `You have added ${myRecipes.length} recipes to your cook book`;
+  updateCount(allRecipesCountElement, recipes.length, "recipes");
+  updateCount(staredRecipesCountElement, staredRecipes.length, "liked recipes");
+  updateCount(myRecipesCountElement, myRecipes.length, "added recipes");
   shoppingCartCountElement.textContent = `You have a total of 0 items in your shopping cart`;
 }
 
