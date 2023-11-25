@@ -251,3 +251,37 @@ h6 {
     padding-inline: 25px;
     overflow-y: auto;
 }
+
+.recipe-container {
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.stared-button {
+    user-select: none;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    bottom: 1ch;
+    right: calc(1ch + 2vw);
+    scale: 2;
+
+    &__star {
+        cursor: pointer;
+        aspect-ratio: 1;
+        color: white;
+
+
+        &:hover {
+            color: rgba(255, 217, 0, 0.3);
+        }
+
+        &:active {
+            color: rgba(255, 217, 0, 0.6);
+        }
+    }
+}
+
+.--star-clicked {
+    color: gold;
+}

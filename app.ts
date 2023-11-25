@@ -42,10 +42,11 @@ recipeForm?.addEventListener("submit", function (e) {
 });
 
 const allRecipesDisplay = document.getElementById("all-recipes") as HTMLElement;
-const staredRecipesDisplay = document.getElementById("stared-recipes") as HTMLElement;
+const staredRecipesDisplay = document.getElementById(
+  "stared-recipes"
+) as HTMLElement;
 
 function displayRecipes(container: HTMLElement, recipesToDisplay: Recipe[]) {
-  console.log("Displaying recipes:", recipesToDisplay);
   container.innerHTML = "";
 
   recipesToDisplay.forEach((recipe) => {
@@ -85,7 +86,11 @@ function displayRecipes(container: HTMLElement, recipesToDisplay: Recipe[]) {
     recipeDuration.textContent = `Duration: ${recipe.DurationInMinutes} minutes`;
 
     const isStared = document.createElement("div");
-    isStared.classList.add("stared-div");
+    isStared.innerHTML = `<button class="stared-button">
+    <p class="stared-button__star">
+    &#9733
+    </p>
+    </button>`;
 
     recipeContainer.appendChild(recipeName);
     recipeContainer.appendChild(recipeType);
@@ -196,7 +201,7 @@ window.addEventListener("load", function () {
   console.log("Stared recipes:", staredRecipes);
 
   displayRecipes(allRecipesDisplay, recipes);
-  displayRecipes(staredRecipesDisplay, staredRecipes);
+  // displayRecipes(staredRecipesDisplay, staredRecipes);
 
   const unfoldButtonsArray = Array.from(
     document.querySelectorAll(".unfold-button")
@@ -221,3 +226,22 @@ function updateHome() {
 }
 
 updateHome();
+
+const starButtonArray = Array.from(
+  document.querySelectorAll(".stared-button")
+) as HTMLButtonElement[];
+
+starButtonArray.forEach((button) => {
+  button.addEventListener("click", function () {
+    likeRecipe(button);
+  });
+});
+
+function likeRecipe(button: any) {
+  button.innerHTML = `<button class="stared-button">
+  <p class="stared-button__star --star-clicked">
+  &#9733
+  </p>
+  </button>`;
+  console.log("button-clicked");
+}

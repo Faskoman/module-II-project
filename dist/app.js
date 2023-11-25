@@ -25,7 +25,6 @@ recipeForm?.addEventListener("submit", function (e) {
 const allRecipesDisplay = document.getElementById("all-recipes");
 const staredRecipesDisplay = document.getElementById("stared-recipes");
 function displayRecipes(container, recipesToDisplay) {
-    console.log("Displaying recipes:", recipesToDisplay);
     container.innerHTML = "";
     recipesToDisplay.forEach((recipe) => {
         const recipeContainer = document.createElement("div");
@@ -57,7 +56,11 @@ function displayRecipes(container, recipesToDisplay) {
         const recipeDuration = document.createElement("p");
         recipeDuration.textContent = `Duration: ${recipe.DurationInMinutes} minutes`;
         const isStared = document.createElement("div");
-        isStared.classList.add("stared-div");
+        isStared.innerHTML = `<button class="stared-button">
+    <p class="stared-button__star">
+    &#9733
+    </p>
+    </button>`;
         recipeContainer.appendChild(recipeName);
         recipeContainer.appendChild(recipeType);
         recipeContainer.appendChild(recipeIngredients);
@@ -136,7 +139,7 @@ window.addEventListener("load", function () {
     console.log("All recipes:", recipes);
     console.log("Stared recipes:", staredRecipes);
     displayRecipes(allRecipesDisplay, recipes);
-    displayRecipes(staredRecipesDisplay, staredRecipes);
+    // displayRecipes(staredRecipesDisplay, staredRecipes);
     const unfoldButtonsArray = Array.from(document.querySelectorAll(".unfold-button"));
     unfoldButtonsArray.forEach((button) => {
         button.addEventListener("click", function () {
@@ -154,3 +157,17 @@ function updateHome() {
     shoppingCartCountElement.textContent = `You have a total of 0 items in your shopping cart`;
 }
 updateHome();
+const starButtonArray = Array.from(document.querySelectorAll(".stared-button"));
+starButtonArray.forEach((button) => {
+    button.addEventListener("click", function () {
+        likeRecipe(button);
+    });
+});
+function likeRecipe(button) {
+    button.innerHTML = `<button class="stared-button">
+  <p class="stared-button__star --star-clicked">
+  &#9733
+  </p>
+  </button>`;
+    console.log("button-clicked");
+}
