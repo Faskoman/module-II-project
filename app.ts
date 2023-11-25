@@ -112,6 +112,7 @@ function displayRecipes(container: HTMLElement, recipesToDisplay: Recipe[]) {
       recipe.isStared = !recipe.isStared;
 
       starInStaredButton.classList.toggle("--star-clicked", recipe.isStared);
+      sessionStorage.setItem("recipes", JSON.stringify(recipes));
 
       console.log(
         `Recipe ${recipe.Name} is now ${
@@ -119,7 +120,7 @@ function displayRecipes(container: HTMLElement, recipesToDisplay: Recipe[]) {
         }`
       );
 
-      updateHome();
+      // updateHome();
       
       event.stopPropagation();
     });
@@ -221,6 +222,7 @@ const shoppingCartCountElement = document.getElementById(
 window.addEventListener("load", function () {
   console.log("All recipes:", recipes);
   console.log("Stared recipes:", staredRecipes);
+  updateHome();
 
   displayRecipes(allRecipesDisplay, recipes);
   // displayRecipes(staredRecipesDisplay, staredRecipes);
@@ -250,5 +252,3 @@ function updateHome() {
     console.error("One or more elements not found. Check your HTML IDs.");
   }
 }
-
-updateHome();

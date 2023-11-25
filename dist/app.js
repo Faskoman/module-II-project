@@ -77,8 +77,9 @@ function displayRecipes(container, recipesToDisplay) {
         staredButton.addEventListener("click", function (event) {
             recipe.isStared = !recipe.isStared;
             starInStaredButton.classList.toggle("--star-clicked", recipe.isStared);
+            sessionStorage.setItem("recipes", JSON.stringify(recipes));
             console.log(`Recipe ${recipe.Name} is now ${recipe.isStared ? "stared" : "not stared"}`);
-            updateHome();
+            // updateHome();
             event.stopPropagation();
         });
     });
@@ -150,6 +151,7 @@ const shoppingCartCountElement = document.getElementById("shopping-cart-count");
 window.addEventListener("load", function () {
     console.log("All recipes:", recipes);
     console.log("Stared recipes:", staredRecipes);
+    updateHome();
     displayRecipes(allRecipesDisplay, recipes);
     // displayRecipes(staredRecipesDisplay, staredRecipes);
     const unfoldButtonsArray = Array.from(document.querySelectorAll(".unfold-button"));
@@ -173,4 +175,3 @@ function updateHome() {
         console.error("One or more elements not found. Check your HTML IDs.");
     }
 }
-updateHome();
