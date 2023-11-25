@@ -51,7 +51,7 @@ function displayRecipes(container: HTMLElement, recipesToDisplay: Recipe[]) {
 
   recipesToDisplay.forEach((recipe) => {
     const recipeContainer = document.createElement("div");
-    recipeContainer.classList.add("recipe-container", "--card");
+    recipeContainer.classList.add("all-recipes__card");
 
     const recipeName = document.createElement("h2");
     recipeName.classList.add("form__h2", "--center-text");
