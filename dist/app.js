@@ -56,11 +56,16 @@ function displayRecipes(container, recipesToDisplay) {
         const recipeDuration = document.createElement("p");
         recipeDuration.textContent = `Duration: ${recipe.DurationInMinutes} minutes`;
         const isStared = document.createElement("div");
-        isStared.innerHTML = `<button class="stared-button">
-    <p class="stared-button__star">
-    &#9733
-    </p>
-    </button>`;
+        const staredButton = document.createElement("button");
+        staredButton.classList.add("stared-button");
+        const starInStaredButton = document.createElement("p");
+        starInStaredButton.classList.add("stared-button__star");
+        starInStaredButton.innerHTML = `&#9733`;
+        staredButton.appendChild(starInStaredButton);
+        isStared.appendChild(staredButton);
+        if (recipe.isStared) {
+            starInStaredButton.classList.add("--star-clicked");
+        }
         recipeContainer.appendChild(recipeName);
         recipeContainer.appendChild(recipeType);
         recipeContainer.appendChild(recipeIngredients);
@@ -69,6 +74,13 @@ function displayRecipes(container, recipesToDisplay) {
         recipeContainer.appendChild(recipeDuration);
         recipeContainer.appendChild(isStared);
         container.appendChild(recipeContainer);
+        staredButton.addEventListener("click", function (event) {
+            recipe.isStared = !recipe.isStared;
+            starInStaredButton.classList.toggle("--star-clicked", recipe.isStared);
+            console.log(`Recipe ${recipe.Name} is now ${recipe.isStared ? "stared" : "not stared"}`);
+            updateHome();
+            event.stopPropagation();
+        });
     });
 }
 function getString(formData, key) {
@@ -151,23 +163,14 @@ function updateCount(element, count, itemName) {
     element.textContent = `You have a total of ${count} ${itemName}`;
 }
 function updateHome() {
-    updateCount(allRecipesCountElement, recipes.length, "recipes");
-    updateCount(staredRecipesCountElement, staredRecipes.length, "liked recipes");
-    updateCount(myRecipesCountElement, myRecipes.length, "added recipes");
-    shoppingCartCountElement.textContent = `You have a total of 0 items in your shopping cart`;
+    if (allRecipesCountElement && staredRecipesCountElement && myRecipesCountElement && shoppingCartCountElement) {
+        updateCount(allRecipesCountElement, recipes.length, "recipes");
+        updateCount(staredRecipesCountElement, staredRecipes.length, "liked recipes");
+        updateCount(myRecipesCountElement, myRecipes.length, "added recipes");
+        shoppingCartCountElement.textContent = `You have a total of 0 items in your shopping cart`;
+    }
+    else {
+        console.error("One or more elements not found. Check your HTML IDs.");
+    }
 }
 updateHome();
-const starButtonArray = Array.from(document.querySelectorAll(".stared-button"));
-starButtonArray.forEach((button) => {
-    button.addEventListener("click", function () {
-        likeRecipe(button);
-    });
-});
-function likeRecipe(button) {
-    button.innerHTML = `<button class="stared-button">
-  <p class="stared-button__star --star-clicked">
-  &#9733
-  </p>
-  </button>`;
-    console.log("button-clicked");
-}
