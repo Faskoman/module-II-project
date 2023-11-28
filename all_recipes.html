@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cook Book</title>
+    <link rel="stylesheet" href="dist/styles.css">
+</head>
+
+<body class="--primary-color">
+    <header class="site-header">
+        <h1 class="site-header__h1 --center-text">My Cook Book</h1>
+        <ul class="site-header__links">
+            <a href="index.html">
+                <li class="site-header__links--item">Home</li>
+            </a>
+            <a href="new_recipe.html">
+                <li class="site-header__links--item">New Recipe</li>
+            </a>
+            <a href="all_recipes.html">
+                <li class="site-header__links--item --chosen-page">All recipes</li>
+            </a>
+            <a id="stared-recipes-button" href="stared_recipes.html">
+                <li class="site-header__links--item">Stared</li>
+            </a>
+            <a href="shopping_cart.html">
+                <li class="site-header__links--item">Shoping cart</li>
+            </a>
+        </ul>
+    </header>
+
+    <main id="all-recipes" class="all-recipes">
+        <article class="all-recipes__card">
+        </article>
+    </main>
+
+    <script type="module" src="dist/app.js"></script>
+</body>
+
+</html>
